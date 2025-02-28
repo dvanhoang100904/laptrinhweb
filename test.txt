@@ -1,1 +1,2 @@
 file test.txt branch test_conflict 
+file test.txt branch test_conflict and main 
