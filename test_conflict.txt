@@ -1,1 +1,2 @@
 file test_conflict.txt branch test_conflict 
+file test_conflict.txt branch test_conflict m… th“i 
