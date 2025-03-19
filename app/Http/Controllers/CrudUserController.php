@@ -27,11 +27,12 @@ class CrudUserController extends Controller
     public function authUser(Request $request)
     {
         $request->validate([
+            'name' => 'required',
             'email' => 'required',
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('name','email', 'password');
 
         if (Auth::attempt($credentials)) {
             return redirect()->intended('list')
@@ -44,15 +45,42 @@ class CrudUserController extends Controller
     /**
      * Registration page
      */
-    public function createUser()
+    public function registerUser()
     {
-        return view('crud_user.create');
+        return view('crud_user.registration');
     }
 
     /**
      * User submit form register
      */
-    public function postUser(Request $request)
+    public function postRegisterUser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+
+        return redirect("login")->with('Registration successful! Please log in');
+    }
+
+      /**
+     * Create page
+     */
+    public function createUser(){
+        return view('crud_user.create');
+    }
+
+    /**
+     * User submit form create
+     */
+      public function postCreateUser(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -67,9 +95,8 @@ class CrudUserController extends Controller
             'password' => Hash::make($data['password'])
         ]);
 
-        return redirect("login");
+        return redirect("list");
     }
-
     /**
      * View user detail page
      */
@@ -110,14 +137,14 @@ class CrudUserController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,id,'.$input['id'],
+            'email' => 'required|email|unique:users,email,'.$input['id'],
             'password' => 'required|min:6',
         ]);
 
        $user = User::find($input['id']);
        $user->name = $input['name'];
        $user->email = $input['email'];
-       $user->password = $input['password'];
+       $user->password = Hash::make($input['password']);
        $user->save();
 
         return redirect("list")->withSuccess('You have signed-in');
