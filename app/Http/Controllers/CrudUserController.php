@@ -27,12 +27,11 @@ class CrudUserController extends Controller
     public function authUser(Request $request)
     {
         $request->validate([
-            'name' => 'required',
             'email' => 'required',
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('name','email', 'password');
+        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             return redirect()->intended('list')
@@ -58,12 +57,16 @@ class CrudUserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
+            'phone' => 'required|digits_between:10,12|unique:users',
+            'address' => 'nullable|string|max:255',
             'password' => 'required|min:6|confirmed',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address ?? '',
             'password' => Hash::make($request->password)
         ]);
 
@@ -85,6 +88,9 @@ class CrudUserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
+            'phone' => 'required|digits_between:10,12|unique:users',
+            'address' => 'nullable|string|max:255',
+            'email' => 'required|string|max:255',
             'password' => 'required|min:6',
         ]);
 
@@ -92,6 +98,8 @@ class CrudUserController extends Controller
         $check = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
+            'address' => $data['address'],
             'password' => Hash::make($data['password'])
         ]);
 
@@ -138,13 +146,19 @@ class CrudUserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$input['id'],
-            'password' => 'required|min:6',
+            'phone' => 'required|digits_between:10,12|unique:users,phone,'.$input['id'],
+            'address' => 'nullable|string|max:255',
+            'password' => 'nullable|min:6',
         ]);
 
        $user = User::find($input['id']);
        $user->name = $input['name'];
        $user->email = $input['email'];
-       $user->password = Hash::make($input['password']);
+       $user->phone = $input['phone'];
+       $user->address = $input['address'];
+        if (isset($input['password']) && $input['password'] !== '') {
+        $user->password = Hash::make($input['password']);
+        }
        $user->save();
 
         return redirect("list")->withSuccess('You have signed-in');
