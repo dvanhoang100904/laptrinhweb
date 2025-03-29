@@ -38,6 +38,8 @@
                 </div>
                 <div class="d-flex align-items-center mt-5">
                     <a class="ms-auto me-4 text-decoration-none" href="{{ route('user.list') }}">Quay lại</a>
+                    <a href="{{ route('user.updateUser', ['id' => $user->id]) }}" class="btn btn-sm btn-success">Chỉnh
+                        sửa</a>
                 </div>
             </div>
         </div>

@@ -73,17 +73,18 @@ class CrudUserController extends Controller
         return redirect("login")->with('Registration successful! Please log in');
     }
 
-      /**
+    /**
      * Create page
      */
-    public function createUser(){
+    public function createUser()
+    {
         return view('crud_user.create');
     }
 
     /**
      * User submit form create
      */
-      public function postCreateUser(Request $request)
+    public function postCreateUser(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -108,7 +109,8 @@ class CrudUserController extends Controller
     /**
      * View user detail page
      */
-    public function readUser(Request $request) {
+    public function readUser(Request $request)
+    {
         $user_id = $request->get('id');
         $user = User::find($user_id);
 
@@ -118,7 +120,8 @@ class CrudUserController extends Controller
     /**
      * Delete user by id
      */
-    public function deleteUser(Request $request) {
+    public function deleteUser(Request $request)
+    {
         $user_id = $request->get('id');
         $user = User::destroy($user_id);
 
@@ -145,21 +148,21 @@ class CrudUserController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$input['id'],
-            'phone' => 'required|digits_between:10,12|unique:users,phone,'.$input['id'],
+            'email' => 'required|email|unique:users,email,' . $input['id'],
+            'phone' => 'required|digits_between:10,12|unique:users,phone,' . $input['id'],
             'address' => 'nullable|string|max:255',
             'password' => 'nullable|min:6',
         ]);
 
-       $user = User::find($input['id']);
-       $user->name = $input['name'];
-       $user->email = $input['email'];
-       $user->phone = $input['phone'];
-       $user->address = $input['address'];
+        $user = User::find($input['id']);
+        $user->name = $input['name'];
+        $user->email = $input['email'];
+        $user->phone = $input['phone'];
+        $user->address = $input['address'];
         if (isset($input['password']) && $input['password'] !== '') {
-        $user->password = Hash::make($input['password']);
+            $user->password = Hash::make($input['password']);
         }
-       $user->save();
+        $user->save();
 
         return redirect("list")->withSuccess('You have signed-in');
     }
@@ -169,7 +172,7 @@ class CrudUserController extends Controller
      */
     public function listUser()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $users = User::all();
             return view('crud_user.list', ['users' => $users]);
         }
@@ -180,7 +183,8 @@ class CrudUserController extends Controller
     /**
      * Sign out
      */
-    public function signOut() {
+    public function signOut()
+    {
         Session::flush();
         Auth::logout();
 
