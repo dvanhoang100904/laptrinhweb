@@ -91,7 +91,6 @@ class CrudUserController extends Controller
             'email' => 'required|email|unique:users',
             'phone' => 'required|digits_between:10,12|unique:users',
             'address' => 'nullable|string|max:255',
-            'email' => 'required|string|max:255',
             'password' => 'required|min:6',
         ]);
 

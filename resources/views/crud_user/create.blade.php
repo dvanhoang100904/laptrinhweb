@@ -42,7 +42,7 @@
                         <label for="address" class="col-sm-3 form-label">Address</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control p-1 border border-dark rounded-0" name="address"
-                                id="address" required placeholder="Nhập địa chỉ" />
+                                id="address" placeholder="Nhập địa chỉ" />
                             @if ($errors->has('address'))
                                 <span class="text-danger">{{ $errors->first('address') }}</span>
                             @endif
