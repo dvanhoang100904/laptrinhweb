@@ -58,7 +58,6 @@ class CrudUserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'phone' => 'required|digits_between:10,12|unique:users',
-            'address' => 'nullable|string|max:255',
             'password' => 'required|min:6|confirmed',
         ]);
 
@@ -66,7 +65,6 @@ class CrudUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'address' => $request->address ?? '',
             'password' => Hash::make($request->password)
         ]);
 
