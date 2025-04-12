@@ -58,6 +58,7 @@ class CrudUserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'phone' => 'required|digits_between:10,12|unique:users',
+            'address' => 'nullable|string|max:255',
             'password' => 'required|min:6|confirmed',
         ]);
 
@@ -65,6 +66,7 @@ class CrudUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'address' => $request->address ?? '',
             'password' => Hash::make($request->password)
         ]);
 
@@ -89,6 +91,9 @@ class CrudUserController extends Controller
             'email' => 'required|email|unique:users',
             'phone' => 'required|digits_between:10,12|unique:users',
             'address' => 'nullable|string|max:255',
+            'email' => 'required|string|max:255',
+            'like' => 'required',
+            'github' => 'required',
             'password' => 'required|min:6',
         ]);
 
@@ -98,6 +103,8 @@ class CrudUserController extends Controller
             'email' => $data['email'],
             'phone' => $data['phone'],
             'address' => $data['address'],
+            'like' => $data['like'],
+            'github' => $data['github'],
             'password' => Hash::make($data['password'])
         ]);
 
@@ -148,6 +155,8 @@ class CrudUserController extends Controller
             'email' => 'required|email|unique:users,email,' . $input['id'],
             'phone' => 'required|digits_between:10,12|unique:users,phone,' . $input['id'],
             'address' => 'nullable|string|max:255',
+            'like' => 'nullable',
+            'github' => 'nullable',
             'password' => 'nullable|min:6',
         ]);
 
@@ -156,6 +165,8 @@ class CrudUserController extends Controller
         $user->email = $input['email'];
         $user->phone = $input['phone'];
         $user->address = $input['address'];
+        $user->like = $input['like'];
+        $user->github = $input['address'];
         if (isset($input['password']) && $input['password'] !== '') {
             $user->password = Hash::make($input['password']);
         }

@@ -50,6 +50,26 @@
                         </div>
                     </div>
                     <div class="mb-3 row align-items-center">
+                        <label for="like" class="col-sm-3 form-label">Like</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control p-1 border border-dark rounded-0" name ="like"
+                                value="{{ $user->like }}" id="like" />
+                            @if ($errors->has('like'))
+                                <span class="text-danger">{{ $errors->first('like') }}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="mb-3 row align-items-center">
+                        <label for="github" class="col-sm-3 form-label">Github</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control p-1 border border-dark rounded-0" name ="github"
+                                value="{{ $user->github }}" id="github" />
+                            @if ($errors->has('github'))
+                                <span class="text-danger">{{ $errors->first('github') }}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="mb-3 row align-items-center">
                         <label for="password" class="col-sm-3 form-label">Mật khẩu</label>
                         <div class="col-sm-9">
                             <input type="password" class="form-control p-1 border border-dark rounded-0" name="password"

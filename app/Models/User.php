@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-     /**
+    /**
      * The primary key associated with the table.
      *
      * @var string
@@ -29,6 +29,8 @@ class User extends Authenticatable
         'email',
         'phone',
         'address',
+        'like',
+        'github',
         'password'
     ];
 
