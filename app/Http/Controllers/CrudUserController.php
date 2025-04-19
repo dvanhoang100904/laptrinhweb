@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
-use Session;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,14 +57,12 @@ class CrudUserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'phone' => 'required|digits_between:10,12|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'phone' => $request->phone,
             'password' => Hash::make($request->password)
         ]);
 
@@ -87,8 +85,6 @@ class CrudUserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'phone' => 'required|digits_between:10,12|unique:users',
-            'address' => 'nullable|string|max:255',
             'password' => 'required|min:6',
         ]);
 
@@ -96,8 +92,6 @@ class CrudUserController extends Controller
         $check = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'phone' => $data['phone'],
-            'address' => $data['address'],
             'password' => Hash::make($data['password'])
         ]);
 
@@ -146,16 +140,12 @@ class CrudUserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $input['id'],
-            'phone' => 'required|digits_between:10,12|unique:users,phone,' . $input['id'],
-            'address' => 'nullable|string|max:255',
             'password' => 'nullable|min:6',
         ]);
 
         $user = User::find($input['id']);
         $user->name = $input['name'];
         $user->email = $input['email'];
-        $user->phone = $input['phone'];
-        $user->address = $input['address'];
         if (isset($input['password']) && $input['password'] !== '') {
             $user->password = Hash::make($input['password']);
         }

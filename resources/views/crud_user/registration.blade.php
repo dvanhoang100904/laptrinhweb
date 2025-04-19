@@ -28,16 +28,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="mb-3 row align-items-center">
-                        <label for="phone" class="col-sm-3 form-label">Phone</label>
-                        <div class="col-sm-9">
-                            <input type="tel" class="form-control p-1 border border-dark rounded-0" name="phone"
-                                id="phone" required pattern="[0-9]{10,12}" placeholder="Nhập số điện thoại" />
-                            @if ($errors->has('phone'))
-                                <span class="text-danger">{{ $errors->first('phone') }}</span>
-                            @endif
-                        </div>
-                    </div>
+
                     <div class="mb-3 row align-items-center">
                         <label for="password" class="col-sm-3 form-label">Mật khẩu</label>
                         <div class="col-sm-9">

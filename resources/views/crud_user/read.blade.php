@@ -24,18 +24,7 @@
                         <p class="text-dark fw-bold">{{ $user->email }}</p>
                     </div>
                 </div>
-                <div class="mb-3 row align-items-center">
-                    <label class="col-sm-3 form-label">Phone</label>
-                    <div class="col-sm-9">
-                        <p class="text-dark fw-bold">{{ $user->phone }}</p>
-                    </div>
-                </div>
-                <div class="mb-3 row align-items-center">
-                    <label class="col-sm-3 form-label">Address</label>
-                    <div class="col-sm-9">
-                        <p class="text-dark fw-bold">{{ $user->address }}</p>
-                    </div>
-                </div>
+
                 <div class="d-flex align-items-center mt-5">
                     <a class="ms-auto me-4 text-decoration-none" href="{{ route('user.list') }}">Quay lại</a>
                     <a href="{{ route('user.updateUser', ['id' => $user->id]) }}" class="btn btn-sm btn-success">Chỉnh
