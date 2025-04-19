@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,5 @@ Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('role', [RoleController::class, 'role'])->name('user.role');
